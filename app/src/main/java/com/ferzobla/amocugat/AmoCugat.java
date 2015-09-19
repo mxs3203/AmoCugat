@@ -47,7 +47,7 @@ public class AmoCugat extends Activity
 		relativeLayout = (RelativeLayout)findViewById(R.id.relativeLayout);
 		relativeLayout.addView(g);
 		
-		
+		//lalala
 
 	}
 	

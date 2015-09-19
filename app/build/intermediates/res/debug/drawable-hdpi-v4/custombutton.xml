@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+ <item android:state_pressed="true" >
+     <shape android:shape="rectangle"  >
+         <corners android:radius="6dip" />
+         <stroke android:width="1dip" 
+             android:color="#000000"
+              />
+         <gradient android:angle="-90" 
+             android:startColor="#D6843E" 
+             android:endColor="#D6843E"  />            
+     </shape>
+ </item>
+<item android:state_focused="true">
+     <shape android:shape="rectangle"  >
+         <corners android:radius="6dip" />
+         <stroke android:width="1dip" 
+             android:color="#D6843E" />
+         <solid android:color="#D6843E"/>       
+     </shape>
+ </item>  
+<item >
+    <shape android:shape="rectangle"  >
+         <corners android:radius="6dip" />
+         <stroke android:width="1dip" 
+             android:color="#000000" />
+         <gradient android:angle="-90"
+              android:startColor="#D6843E" 
+              android:endColor="#000000" />            
+     </shape>
+ </item>
+
+</selector><!-- From: file:/Users/mateosokac/Downloads/AmoCugat/app/src/main/res/drawable-hdpi/custombutton.xml -->

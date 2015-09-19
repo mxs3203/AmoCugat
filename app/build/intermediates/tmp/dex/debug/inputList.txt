@@ -1,0 +1,5 @@
+/Users/mateosokac/Downloads/AmoCugat/app/build/intermediates/classes/debug
+/Users/mateosokac/Downloads/AmoCugat/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-81b834fbd6f8e69622dd4976f470afffec9b970e.jar
+/Users/mateosokac/Downloads/AmoCugat/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-5f7779ae37531616bda59c413b290bcca19e895a.jar
+/Users/mateosokac/Downloads/AmoCugat/app/build/intermediates/pre-dexed/debug/classes-bc9ea544c24c485fd8f65898e7ac81edd471414e.jar
+/Users/mateosokac/Downloads/AmoCugat/app/build/intermediates/pre-dexed/debug/classes-ba983b95ce6c7ea0fca88ba084dd5072f4daaffe.jar

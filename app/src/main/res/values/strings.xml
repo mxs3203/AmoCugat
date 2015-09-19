@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">\'AmoCugat</string>
+    <string name="amocugat">\'Amo Cugat</string>
+     <string name="createCugat">Create CugaList</string>
+     <string name="save">Save</string>
+    <string name="action_settings">Settings</string>
+
+</resources>

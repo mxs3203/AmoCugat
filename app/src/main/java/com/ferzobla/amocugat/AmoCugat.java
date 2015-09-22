@@ -11,9 +11,11 @@ import android.graphics.Path;
 import android.graphics.Path.Direction;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,15 +24,19 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 
 public class AmoCugat extends Activity
 {
 	public static TextView karta;
 	public static View mainView;
 	public static Map<String, String> pravila;
+	public ArrayList<String> timeout;
 	public RelativeLayout relativeLayout;
 	static GraphicsView g;
 	public int playerTurn=0;
+	public int gameTurn = 1;
+	public final double chanceOfRepeat = 0.05;
 	
 
 	@Override
@@ -47,20 +53,41 @@ public class AmoCugat extends Activity
 		relativeLayout = (RelativeLayout)findViewById(R.id.relativeLayout);
 		relativeLayout.addView(g);
 		
-		//lalalaskajdfh
+		timeout = new ArrayList<String>();
 
 	}
 	
 	public void drawPravilo(View v)
 	{
-        ArrayList<Integer> numbers;
+		String key;
+		String pravilo;
+		int randInt = 0;
 
+		Random rand = new Random();
 
-        /*Random rand = new Random();
-        int randInt = rand.nextInt(13);
+		if(gameTurn == 1) {
+			randInt = rand.nextInt(13);
+			key = Integer.toString(randInt);
+			pravilo = pravila.get(key);
+			timeout.add(pravilo);
+		}
+		else {
+			if(gameTurn >=4){
+				timeout.remove(0);
+			}
 
-		String key = Integer.toString(randInt);
-		String pravilo = pravila.get(key);
+			do{
+				randInt = rand.nextInt(13);
+				key = Integer.toString(randInt);
+				pravilo = pravila.get(key);
+
+			}while(timeout.contains(pravilo) && !(Math.random() <= chanceOfRepeat));
+
+			if(!timeout.contains(pravilo)){
+				timeout.add(pravilo);
+			}
+		}
+		gameTurn++;
 		String whoDrink = getPlayer();
 		karta.setText(whoDrink + ":  "+pravilo);
 		Animation anim = AnimationUtils.loadAnimation(this, R.anim.zoom_in);
@@ -81,17 +108,10 @@ public class AmoCugat extends Activity
 	                               }
 	                       }, 3000);
 	               }
-	       }.start();*/
+	       }.start();
 		
 	}
 
-    public ArrayList fillList(){
-        ArrayList<Integer> nums = new ArrayList<Integer>();
-        for (int i = 0; i < 13;i++){
-
-        }
-        return nums;
-    }
 	public String getPlayer()
 	{
 		String playerName = MainActivity.players.get(playerTurn).getText().toString();

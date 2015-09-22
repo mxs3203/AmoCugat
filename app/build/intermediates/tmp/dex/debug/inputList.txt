@@ -1,5 +1,5 @@
-/Users/mateosokac/IdeaProjects/AmoCugat/app/build/intermediates/classes/debug
-/Users/mateosokac/IdeaProjects/AmoCugat/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-81b834fbd6f8e69622dd4976f470afffec9b970e.jar
-/Users/mateosokac/IdeaProjects/AmoCugat/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-b2ae381af85ca998e6f91398289a938d27e3480f.jar
-/Users/mateosokac/IdeaProjects/AmoCugat/app/build/intermediates/pre-dexed/debug/classes-25ce4442d7d37eb2d81f1f14efd81c5a25984f55.jar
-/Users/mateosokac/IdeaProjects/AmoCugat/app/build/intermediates/pre-dexed/debug/classes-27fd64e940cc0e105cbcc52f025ba0295eae2f67.jar
+C:\Users\Filipe\Desktop\amocugat\app\build\intermediates\classes\debug
+C:\Users\Filipe\Desktop\amocugat\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-b29ab2662df72389852718de54e9ae72a2bc7339.jar
+C:\Users\Filipe\Desktop\amocugat\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-fc4601d3fd278439e1c12dcb61313e4f6ad31326.jar
+C:\Users\Filipe\Desktop\amocugat\app\build\intermediates\pre-dexed\debug\classes-96066591f32ae741e50c16a077f4841965d6e31c.jar
+C:\Users\Filipe\Desktop\amocugat\app\build\intermediates\pre-dexed\debug\classes-4d9dc53ea9ab117886e174ed7c231ea836b9d2a7.jar

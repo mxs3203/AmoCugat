@@ -3,8 +3,15 @@
 
     <string name="app_name">\'AmoCugat</string>
     <string name="amocugat">\'Amo Cugat</string>
-     <string name="createCugat">Create CugaList</string>
-     <string name="save">Save</string>
+    <string name="choice">What would you like to do?</string>
+    <string name="createCugat">Create CugaList</string>
+    <string name="loadList">Load CugaList</string>
+    <string name="save">Save</string>
+    <string name="dajPravila">Glupane! Nemoze cugat bez svih pravila!</string>
+    <string name="dajIme">EJ!! Daj ime!</string>
+    <string name="imeExists">Pedercino! Ne moze isto ime ko druga!</string>
+    <string name="askNumPlayers">How many would like to get drunk?</string>
+    <string name="ok">Ok</string>
     <string name="action_settings">Settings</string>
 
 </resources>

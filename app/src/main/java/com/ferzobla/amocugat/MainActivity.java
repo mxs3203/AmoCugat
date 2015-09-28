@@ -1,39 +1,27 @@
 package com.ferzobla.amocugat;
 
-import java.util.ArrayList;
-
-import com.ferzobla.amocugat.NoviCugaList.OnFragmentInteractionListener;
-
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.text.InputType;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.text.InputType;
+import android.view.*;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.Toast;
-import android.os.Build;
+
+import java.util.ArrayList;
 
 
 
-public class MainActivity extends ActionBarActivity implements OnFragmentInteractionListener
+public class MainActivity extends ActionBarActivity implements NoviCugaList.OnFragmentInteractionListener
 {
 	public static ArrayList<EditText> players = new ArrayList<EditText>();
-	
+	public NoviCugaList ncl;
+    public AmoCugatDialogs acDialogs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +32,8 @@ public class MainActivity extends ActionBarActivity implements OnFragmentInterac
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
-        
-        
+
+
     }
 
 
@@ -86,155 +74,40 @@ public class MainActivity extends ActionBarActivity implements OnFragmentInterac
             return rootView;
         }
     }
-    
-    public void createDialog()
-	 {
-    		ImageView image = new ImageView(this);
-    		image.setImageResource(R.drawable.why);
-    	
-	        // Use the Builder class for convenient dialog construction
-	        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	        builder.setView(image);
-	        builder.setMessage("Moras Prvo napraviti pravila!")
-	               .setPositiveButton("Kuzim...", new DialogInterface.OnClickListener() 
-	               {
-	                   public void onClick(DialogInterface dialog, int id) 
-	                   {
-	                      dialog.dismiss(); 
-	                   }
-	               })
-	               .setNegativeButton("Stvarno kuzim...", new DialogInterface.OnClickListener() {
-	                   public void onClick(DialogInterface dialog, int id) {
-	                       // User cancelled the dialog
-	                	   dialog.dismiss(); 
-	                   }
-	               });
-	        AlertDialog bla = builder.create();
-	        bla.show();
-	       
-	    }
-    
-    public void play(View v)
-	{
-    	
-		if(NoviCugaList.dbCreated)
-		{
-			
-			 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			 
-		        builder.setMessage("How many want to get drunk tonight?");
-		        final EditText editText = new EditText(this);
-		        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-		        editText.setWidth(250);
-				editText.setTextColor(Color.BLACK);
-				builder.setView(editText);
-		        
-		               builder.setPositiveButton("That many!", new DialogInterface.OnClickListener() 
-		               {
-		                   public void onClick(DialogInterface dialog, int id) 
-		                   {
-		                      if(editText.getText().toString().equalsIgnoreCase(""))
-		                      {
-		                    	  Toast.makeText(getApplication(), "Do you want to get drunk or not?", Toast.LENGTH_LONG).show();
-		                          
-		                      }
-		                      else
-		                      {
-		                    	  dialog.dismiss(); 
-		                    	  setPlayers(Integer.parseInt(editText.getText().toString()));
-		                    	 
-		                      }
-		                   }
-		               });
-		        AlertDialog bla = builder.create();
-		        bla.show();
-			
 
-               
-		
-		}
-		else
-		{
-			createDialog();
-		}
-    	
-		
-		
-		
-	}
-    
-    public void setPlayers(int num)
-    {
-    	
-    	
-    	players.clear();
-    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		 
-        builder.setMessage("Name the drunken fellows!");
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        
-        for(int i =0; i<num; i++)
-        {
-        	
-        	EditText player = new EditText(this);
-        	layout.addView(player);
-        	players.add(player);
+    public void amoCugat(View v) {
+        String[] choice = acDialogs.listChoice();
+        if(choice.length > 0){
+            if(choice[0].equalsIgnoreCase("Create List")){
+                ncl = new NoviCugaList();
+                getSupportFragmentManager().beginTransaction().add(R.id.container,
+                        ncl).addToBackStack(null).commit();
+            }
+            else{
+
+            }
         }
-        
-        builder.setView(layout);
-        
-        
-           builder.setPositiveButton("\'Amo Cugat vise!", new DialogInterface.OnClickListener() 
-           {
-               public void onClick(DialogInterface dialog, int id) 
-               {
-            	   
-            	  boolean allClear = true;
-                  for(EditText e : players)
-                  {
-                	  System.out.println(e.getText().toString());
-                	  if(e.getText().toString().equalsIgnoreCase(""))
-                	  {
-                		  allClear = false;
-                		  break;
-                	  }
-                	  else
-                	  {
-                		 allClear = true;  
-                	  }
-                  }
-                  if(allClear)
-                  {
-                	  dialog.dismiss();
-                	  _startActivity();
-                  }
-                  else
-                  {
-                	  Toast.makeText(getApplication(), "Name allovit!", Toast.LENGTH_LONG).show();
-                  }
-                  
-                  
-               }
-           });
-        AlertDialog bla = builder.create();
-        bla.show();
-	
-    }
-    
-    public void _startActivity()
-    {
-    	 Intent i = new Intent(this , AmoCugat.class);
-         startActivity(i);
-    }
-   
-    
-    public void noviCugaList(View v)
-    {
-    	 getSupportFragmentManager().beginTransaction().replace(R.id.container, 
-    			 new NoviCugaList()).addToBackStack(null).commit();
+        else{
+            Toast.makeText(this, "Something went wrong, try again.", Toast.LENGTH_LONG);
+        }
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+    }
+
+    public void _startActivity() {
+		Intent i = new Intent(this, AmoCugat.class);
+        i.putExtra("listName",ncl.getListName());
+		startActivity(i);
+	}
 
 	@Override
 	public void onFragmentInteraction() {

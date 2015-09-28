@@ -36,7 +36,8 @@ public class AmoCugat extends Activity
 	static GraphicsView g;
 	public int playerTurn=0;
 	public int gameTurn = 1;
-	public final double chanceOfRepeat = 0.05;
+	public final double chanceOfRepeat = 0.025;
+	public String listName;
 	
 
 	@Override
@@ -45,11 +46,14 @@ public class AmoCugat extends Activity
 		super.onCreate(bundle);
 		this.setContentView(R.layout.amocugat);
 		Intent i = getIntent();
+		if(i.hasExtra("listName")){
+			listName = i.getStringExtra("listName");
+		}
 		new GetCards().execute((Object[]) null);
 		
 		
 		karta = (TextView)findViewById(R.id.textView1);
-		 g = new GraphicsView(this);
+		g = new GraphicsView(this);
 		relativeLayout = (RelativeLayout)findViewById(R.id.relativeLayout);
 		relativeLayout.addView(g);
 		
@@ -81,7 +85,7 @@ public class AmoCugat extends Activity
 				key = Integer.toString(randInt);
 				pravilo = pravila.get(key);
 
-			}while(timeout.contains(pravilo) && !(Math.random() <= chanceOfRepeat));
+			}while(timeout.contains(pravilo) && (Math.random() >= chanceOfRepeat));
 
 			if(!timeout.contains(pravilo)){
 				timeout.add(pravilo);
@@ -132,7 +136,7 @@ public class AmoCugat extends Activity
 		{
 			NoviCugaList.database.open();
 
-			pravila = NoviCugaList.database.getAllValues();
+			pravila = NoviCugaList.database.getAllValues(listName);
 
 			for (Entry<String, String> entry : pravila.entrySet())
 			{
@@ -142,7 +146,7 @@ public class AmoCugat extends Activity
 				// do what you have to do here
 				// In your case, an other loop.
 			}
-			return NoviCugaList.database.getAllCards();
+			return NoviCugaList.database.getAllCards(listName);
 		}
 
 		@Override

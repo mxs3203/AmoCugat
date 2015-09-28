@@ -17,18 +17,26 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
 public class DataBaseConnect 
 {
-	private static final String DATABASE_NAME = "decks";
+	private static final String DATABASE_NAME = "lists";
 	private static SQLiteDatabase myData; 				
 	private static Helper databaseOpenHelper;
-	
-	
-	
-	public DataBaseConnect(Context context)
-	{
-		
+	private String tableName;
+
+	public void setHelper(Context context){
 		databaseOpenHelper = new Helper(context, DATABASE_NAME, null, 1);
-	
-	} 
+	}
+
+	public boolean checkTableName(String tableName){
+		Cursor cursor = myData.rawQuery("select DISTINCT tbl_name from lists where tbl_name = '"+tableName+"'", null);
+		if(cursor!=null) {
+			if(cursor.getCount()>0) {
+				cursor.close();
+				return true;
+			}
+			cursor.close();
+		}
+		return false;
+	}
 	
 	public static void open() throws SQLException
 	{
@@ -44,28 +52,30 @@ public class DataBaseConnect
 		}
 	} 
 	
+	public static String createTable(String name){
+		return "CREATE TABLE " + name  + "(_id integer primary key autoincrement,cardNum integer, pravilo TEXT);";
+	}
 	
-	
-	public static void insertCard(int cardNum, String pravilo)
+	public static void insertCard(String name, int cardNum, String pravilo)
 	{
 		ContentValues newCard = new ContentValues();
 		newCard.put("cardNum", cardNum);
 		newCard.put("pravilo", pravilo);
 		
 		open();
-		myData.insert("decks", null, newCard);
+		myData.insert(name, null, newCard);
 		close(); 
 	} 
 	
-	public static Cursor getAllCards() 
+	public static Cursor getAllCards(String name)
 	{
-		return myData.query("decks", new String[] { "_id","cardNum","pravilo"}, null,null, null, null, "cardNum ASC");
+		return myData.query(name, new String[] { "_id","cardNum","pravilo"}, null,null, null, null, "cardNum ASC");
 	} 
 	
-	public static Map<String,String> getAllValues()
+	public static Map<String,String> getAllValues(String name)
 	{
 	    Map<String,String> values = new HashMap<String,String>();
-	    Cursor cursor = myData.query("decks", new String[] { "_id","cardNum","pravilo"}, null, null, null, null, "cardNum ASC");
+	    Cursor cursor = myData.query(name, new String[] { "_id","cardNum","pravilo"}, null, null, null, null, "cardNum ASC");
 	    if (cursor.moveToFirst())
 	    {
 	        do
@@ -85,20 +95,20 @@ public class DataBaseConnect
 	public static void deleteAll()
 	{
 		open();
-		myData.delete("decks" , null, null);
+		myData.delete("list" , null, null);
 		close();
 	}
 	
-	public void deleteDeck( long id) 
+	public void deleteDeck(String name, long id)
 	{
 		open(); // open the database
-		myData.delete("decks", "_id=" + id , null);
+		myData.delete(name, "_id=" + id , null);
 		close(); // close the databaseZ
-	} 
+	}
 	
 	public int getSize()
 	{
-		return databaseOpenHelper.getSize(myData);
+		return databaseOpenHelper.getSize(myData, tableName);
 	}
 	
 	private class Helper extends SQLiteOpenHelper 
@@ -112,13 +122,13 @@ public class DataBaseConnect
 		@Override
 		public void onCreate(SQLiteDatabase db) 
 		{
-			String query = "CREATE TABLE decks (_id integer primary key autoincrement,cardNum integer, pravilo TEXT);";
+			String query = createTable(tableName);
 			db.execSQL(query); 
 		} 
 		
-		public int getSize(SQLiteDatabase d)
+		public int getSize(SQLiteDatabase d, String tableName)
 		{
-			String cnt = "Select * from decks";
+			String cnt = "Select * from " + tableName;
 			d = this.getReadableDatabase();
 			Cursor c = d.rawQuery(cnt, null);
 			return c.getCount();

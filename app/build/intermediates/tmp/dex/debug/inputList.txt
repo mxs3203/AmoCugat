@@ -1,5 +1,0 @@
-C:\Users\Filipe\Desktop\amocugat\app\build\intermediates\classes\debug
-C:\Users\Filipe\Desktop\amocugat\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-b29ab2662df72389852718de54e9ae72a2bc7339.jar
-C:\Users\Filipe\Desktop\amocugat\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-fc4601d3fd278439e1c12dcb61313e4f6ad31326.jar
-C:\Users\Filipe\Desktop\amocugat\app\build\intermediates\pre-dexed\debug\classes-96066591f32ae741e50c16a077f4841965d6e31c.jar
-C:\Users\Filipe\Desktop\amocugat\app\build\intermediates\pre-dexed\debug\classes-4d9dc53ea9ab117886e174ed7c231ea836b9d2a7.jar

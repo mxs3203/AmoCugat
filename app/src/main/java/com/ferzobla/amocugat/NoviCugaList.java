@@ -37,7 +37,6 @@ public class NoviCugaList extends Fragment
 	TableLayout mainTable;
 	Button saveButton;
 	public static boolean dbCreated = false;
-	public AmoCugatDialogs acdDialogs;
 
 	public NoviCugaList()
 	{
@@ -149,7 +148,7 @@ public class NoviCugaList extends Fragment
 
 	public void createDialog(int version)
 	{
-		acdDialogs.nclDialogs(version);
+		AmoCugatDialogs.nclDialogs(getActivity(), version);
 	}
 
 	

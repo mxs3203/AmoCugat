@@ -1,6 +1,7 @@
 package com.ferzobla.amocugat;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,8 +21,8 @@ import java.util.ArrayList;
 public class MainActivity extends ActionBarActivity implements NoviCugaList.OnFragmentInteractionListener
 {
 	public static ArrayList<EditText> players = new ArrayList<EditText>();
-	public NoviCugaList ncl;
-    public AmoCugatDialogs acDialogs;
+	public static NoviCugaList ncl;
+    public static Context c;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class MainActivity extends ActionBarActivity implements NoviCugaList.OnFr
                     .commit();
         }
 
-
+        c = this;
     }
 
 
@@ -76,9 +77,23 @@ public class MainActivity extends ActionBarActivity implements NoviCugaList.OnFr
     }
 
     public void amoCugat(View v) {
-        String[] choice = acDialogs.listChoice();
-        if(choice.length > 0){
-            if(choice[0].equalsIgnoreCase("Create List")){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                AmoCugatDialogs.listChoice(c);
+            }
+        });
+        try{
+            wait();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+
+        String choice = AmoCugatDialogs.getChoice();
+        if(choice != null){
+            System.out.println("not null!!!");
+            if(choice.equalsIgnoreCase("Create List")){
                 ncl = new NoviCugaList();
                 getSupportFragmentManager().beginTransaction().add(R.id.container,
                         ncl).addToBackStack(null).commit();
@@ -88,8 +103,10 @@ public class MainActivity extends ActionBarActivity implements NoviCugaList.OnFr
             }
         }
         else{
-            Toast.makeText(this, "Something went wrong, try again.", Toast.LENGTH_LONG);
+            Toast.makeText(this, "Something went wrong, try again.", Toast.LENGTH_LONG).show();
         }
+
+
 
     }
 
@@ -112,7 +129,7 @@ public class MainActivity extends ActionBarActivity implements NoviCugaList.OnFr
 	@Override
 	public void onFragmentInteraction() {
 		// TODO Auto-generated method stub
-		
+		System.out.println("here");
 	}
     
 }
